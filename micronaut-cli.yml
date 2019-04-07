@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: org.bonn.pokerserver.poker
+---
+testFramework: junit
+sourceLanguage: java
