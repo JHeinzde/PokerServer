@@ -8,9 +8,9 @@ import org.bonn.pokerserver.poker.game.entities.enums.Value;
  */
 public class HandValue {
 
-    private HandValueType handType;
-    private Value firstCardValue;
-    private Value secondCardValue;
+    private final HandValueType handType;
+    private final Value firstCardValue;
+    private final Value secondCardValue;
 
     private HandValue(HandValueType handType, Value firstCardValue, Value secondCardValue) {
         this.handType = handType;

@@ -52,21 +52,6 @@ public class OmahaHandTest {
     }
 
     @Test
-    public void testPreFlopCalculation() {
-        Board board = Board.newBoard(new HashSet<>(), Stage.PRE_FLOP);
-        Hand hand = OmahaHand.newHand(getPocketPairHand(), board);
-
-        assertEquals(HandValueType.PAIR, hand.getHandValue().getHandType());
-        assertEquals(Value.ACE, hand.getHandValue().getFirstCardValue());
-
-
-        hand = OmahaHand.newHand(getBroadWayHand(), board);
-
-        assertEquals(HandValueType.HIGHCARD, hand.getHandValue().getHandType());
-        assertEquals(Value.ACE, hand.getHandValue().getFirstCardValue());
-    }
-
-    @Test
     public void testFlopCalculation() {
         Set<Card> boardCards = new HashSet<>();
         boardCards.add(Card.newCard(Value.ACE, Suit.SPADE));
