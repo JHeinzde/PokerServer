@@ -19,7 +19,7 @@ public class PokerUtilsTest {
 
     private Set<Card> testCards = new HashSet<>();
 
-    private PokerUtils pokerUtils = PokerUtils.newPokerUtils();
+    private PokerUtils pokerUtils = PokerUtils.getPokerUtils();
 
     @After
     public void tearDown() {
@@ -38,7 +38,7 @@ public class PokerUtilsTest {
 
     @Test
     public void testHandValuePair() {
-        PokerUtils pokerUtils = PokerUtils.newPokerUtils();
+        PokerUtils pokerUtils = PokerUtils.getPokerUtils();
         setPairedHandScenario();
 
         HandValue resultHandValue = pokerUtils.calculateHandValue(testCards);

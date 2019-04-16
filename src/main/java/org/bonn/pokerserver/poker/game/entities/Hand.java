@@ -1,34 +1,38 @@
 package org.bonn.pokerserver.poker.game.entities;
 
+import org.bonn.pokerserver.poker.game.entities.enums.Comparison;
+
 import java.util.Collections;
 import java.util.Set;
 
 public abstract class Hand {
 
     /**
-     * This wont change, since the hand cards are fixed after dealing them
+     * This wont change, since the hand handCards are fixed after dealing them
      */
-    protected final Set<Card> cards;
+    protected final Set<Card> handCards;
+    protected final Board communityCards;
 
     /**
      * This HandValue will change depending on pre flop, flop, turn and river
      */
-    protected  HandValue handValue;
+    protected HandValue handValue;
 
-    Hand(Set<Card> cards) {
-        this.cards = cards;
+    Hand(Set<Card> handCards, Board communityCards) {
+        this.handCards = handCards;
+        this.communityCards = communityCards;
     }
 
-    public Set<Card> getCards() {
-        return Collections.unmodifiableSet(cards);
+    public Set<Card> getHandCards() {
+        return Collections.unmodifiableSet(handCards);
     }
 
     public HandValue getHandValue() {
         return handValue;
     }
 
-    public abstract boolean winsAgainst(Hand otherHand);
+    public abstract Comparison winsAgainst(Hand otherHand);
 
-    protected abstract void calculateCurrentHandValue(Board board);
+    protected abstract void calculateCurrentHandValue();
 
 }

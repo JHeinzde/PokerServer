@@ -1,9 +1,6 @@
 package org.bonn.pokerserver.poker.game.entities;
 
-import org.bonn.pokerserver.poker.game.entities.enums.HandValueType;
-import org.bonn.pokerserver.poker.game.entities.enums.Stage;
-import org.bonn.pokerserver.poker.game.entities.enums.Suit;
-import org.bonn.pokerserver.poker.game.entities.enums.Value;
+import org.bonn.pokerserver.poker.game.entities.enums.*;
 import org.bonn.pokerserver.poker.game.exceptions.TechnicalGameException;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +28,7 @@ public class OmahaHandTest {
     public void testImmutabilityOfGetCards() {
         Hand testHand = OmahaHand.newHand(cards, Board.newBoard(cards, Stage.PRE_FLOP));
 
-        Set<Card> handCards = testHand.getCards();
+        Set<Card> handCards = testHand.getHandCards();
         handCards.remove(Card.newCard(Value.THREE, Suit.SPADE));
         // Test if the returned list is immutable
         assertEquals(4, handCards.size());
@@ -55,8 +52,8 @@ public class OmahaHandTest {
     public void testFlopCalculation() {
         Set<Card> boardCards = new HashSet<>();
         boardCards.add(Card.newCard(Value.ACE, Suit.SPADE));
-        boardCards.add(Card.newCard(Value.KING,Suit.SPADE));
-        boardCards.add(Card.newCard(Value.QUEEN,Suit.SPADE));
+        boardCards.add(Card.newCard(Value.KING, Suit.SPADE));
+        boardCards.add(Card.newCard(Value.QUEEN, Suit.SPADE));
 
         Board board = Board.newBoard(boardCards, Stage.FLOP);
 
@@ -74,7 +71,22 @@ public class OmahaHandTest {
         Hand highCardHand = OmahaHand.newHand(getBroadWayHand(), board);
         Hand pairHand = OmahaHand.newHand(getPocketPairHand(), board);
 
-        assertTrue(pairHand.winsAgainst(highCardHand));
+        assertEquals(Comparison.WIN, pairHand.winsAgainst(highCardHand));
+        assertEquals(Comparison.LOSS, highCardHand.winsAgainst(pairHand));
+
+        Hand tiePairHand = OmahaHand.newHand(getTieHandForPocketPair(), board);
+
+        assertEquals(Comparison.TIE, pairHand.winsAgainst(tiePairHand));
+    }
+
+    private static Set<Card> getTieHandForPocketPair(){
+        Set<Card> pairHandList = new HashSet<>();
+        pairHandList.add(Card.newCard(Value.ACE, Suit.HEART));
+        pairHandList.add(Card.newCard(Value.ACE, Suit.CLUB));
+        pairHandList.add(Card.newCard(Value.KING, Suit.DIAMOND));
+        pairHandList.add(Card.newCard(Value.KING, Suit.SPADE));
+
+        return pairHandList;
     }
 
 

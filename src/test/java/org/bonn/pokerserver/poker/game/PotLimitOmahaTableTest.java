@@ -3,7 +3,7 @@ package org.bonn.pokerserver.poker.game;
 import org.junit.After;
 import org.junit.Before;
 
-public class PotLimitOmahaTest {
+public class PotLimitOmahaTableTest {
 
     @Before
     public void setUp() throws Exception {
