@@ -51,7 +51,7 @@ public class OmahaHandTest {
     @Test
     public void testFlopCalculation() {
         Set<Card> boardCards = new HashSet<>();
-        boardCards.add(Card.newCard(Value.ACE, Suit.SPADE));
+        boardCards.add(Card.newCard(Value.ACE, Suit.HEART));
         boardCards.add(Card.newCard(Value.KING, Suit.SPADE));
         boardCards.add(Card.newCard(Value.QUEEN, Suit.SPADE));
 
@@ -61,7 +61,7 @@ public class OmahaHandTest {
         Set<Card> handCards = getBroadWayHand();
         Hand acePairHand = OmahaHand.newHand(handCards, board);
 
-        assertEquals(HandValueType.PAIR, acePairHand.getHandValue().getHandType());
+        assertEquals(HandValueType.TWO_PAIR, acePairHand.getHandValue().getHandType());
         assertEquals(Value.ACE, acePairHand.getHandValue().getFirstCardValue());
     }
 
