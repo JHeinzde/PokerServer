@@ -1,5 +1,5 @@
 
-[[!Build Status Master](https://travis-ci.org/JHeinzde/PokerServer.svg?branch=master)](https://travis-ci.org/JHeinzde/PokerServer)
+[![Build Status Master](https://travis-ci.org/JHeinzde/PokerServer.svg?branch=master)](https://travis-ci.org/JHeinzde/PokerServer)
 
 # PokerServer
 An open-source PokerServer, written in Java using micronaut. 
