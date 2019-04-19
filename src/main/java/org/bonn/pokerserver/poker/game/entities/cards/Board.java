@@ -26,7 +26,6 @@ public class Board extends Observable {
     }
 
 
-
     public static Board newBoard(Set<Card> communityCards, Stage stageOfBoard) {
         return new Board(communityCards, stageOfBoard);
     }
