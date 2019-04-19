@@ -1,5 +1,9 @@
 package org.bonn.pokerserver.poker.game.entities;
 
+import org.bonn.pokerserver.poker.game.entities.cards.Board;
+import org.bonn.pokerserver.poker.game.entities.cards.Card;
+import org.bonn.pokerserver.poker.game.entities.cards.Hand;
+import org.bonn.pokerserver.poker.game.entities.cards.OmahaHand;
 import org.bonn.pokerserver.poker.game.entities.enums.*;
 import org.bonn.pokerserver.poker.game.exceptions.TechnicalGameException;
 import org.junit.Before;

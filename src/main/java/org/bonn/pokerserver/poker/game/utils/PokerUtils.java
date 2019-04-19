@@ -1,8 +1,8 @@
 package org.bonn.pokerserver.poker.game.utils;
 
 import org.bonn.pokerserver.poker.common.comparators.HandValueComparator;
-import org.bonn.pokerserver.poker.game.entities.Card;
-import org.bonn.pokerserver.poker.game.entities.HandValue;
+import org.bonn.pokerserver.poker.game.entities.cards.Card;
+import org.bonn.pokerserver.poker.game.entities.cards.HandValue;
 import org.bonn.pokerserver.poker.game.entities.enums.HandValueType;
 import org.bonn.pokerserver.poker.game.entities.enums.Suit;
 import org.bonn.pokerserver.poker.game.entities.enums.Value;

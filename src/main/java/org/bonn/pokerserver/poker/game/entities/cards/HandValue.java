@@ -1,4 +1,4 @@
-package org.bonn.pokerserver.poker.game.entities;
+package org.bonn.pokerserver.poker.game.entities.cards;
 
 import org.bonn.pokerserver.poker.game.entities.enums.HandValueType;
 import org.bonn.pokerserver.poker.game.entities.enums.Value;

@@ -1,10 +1,9 @@
-package org.bonn.pokerserver.poker.game.entities;
+package org.bonn.pokerserver.poker.game.entities.cards;
 
 import com.google.common.collect.Sets;
 import org.bonn.pokerserver.poker.common.comparators.HandValueComparator;
 import org.bonn.pokerserver.poker.common.interfaces.Observer;
 import org.bonn.pokerserver.poker.game.entities.enums.Comparison;
-import org.bonn.pokerserver.poker.game.entities.enums.HandValueType;
 import org.bonn.pokerserver.poker.game.entities.enums.Stage;
 import org.bonn.pokerserver.poker.game.exceptions.TechnicalGameException;
 import org.bonn.pokerserver.poker.game.utils.PokerUtils;
