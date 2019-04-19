@@ -1,5 +1,6 @@
 package org.bonn.pokerserver.poker.game.utils;
 
+import org.bonn.pokerserver.poker.common.comparators.HandValueComparator;
 import org.bonn.pokerserver.poker.game.entities.Card;
 import org.bonn.pokerserver.poker.game.entities.HandValue;
 import org.bonn.pokerserver.poker.game.entities.enums.HandValueType;
@@ -58,7 +59,7 @@ public class PokerUtils {
             handValueTypeFunction.getValue().apply(allCards).ifPresent(sortedHandValues::add);
         }
 
-        sortedHandValues.sort(Comparator.comparingInt(handValue -> handValue.getHandType().getNumericHandValue()));
+        sortedHandValues.sort(new HandValueComparator());
 
 
         return sortedHandValues.get(sortedHandValues.size() - 1);

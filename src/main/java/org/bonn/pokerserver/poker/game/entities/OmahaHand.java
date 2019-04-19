@@ -1,6 +1,7 @@
 package org.bonn.pokerserver.poker.game.entities;
 
 import com.google.common.collect.Sets;
+import org.bonn.pokerserver.poker.common.comparators.HandValueComparator;
 import org.bonn.pokerserver.poker.common.interfaces.Observer;
 import org.bonn.pokerserver.poker.game.entities.enums.Comparison;
 import org.bonn.pokerserver.poker.game.entities.enums.HandValueType;
@@ -50,63 +51,27 @@ public class OmahaHand extends Hand implements Observer {
      */
     @Override
     public Comparison winsAgainst(Hand otherHand) {
-        if (tie(otherHand)) {
-            return Comparison.TIE;
-        } else if (loss(otherHand)) {
+        Comparator<HandValue> handValueComparator = new HandValueComparator();
+        int resultOfComparison = handValueComparator.compare(this.handValue, otherHand.getHandValue());
+
+        if (resultOfComparison < 0) {
             return Comparison.LOSS;
+        } else if (resultOfComparison == 0){
+            return Comparison.TIE;
         } else {
             return Comparison.WIN;
         }
     }
 
-    private boolean loss(Hand otherHand) {
-        return this.handValue.getHandType().getNumericHandValue()
-                < otherHand.getHandValue().getHandType().getNumericHandValue();
-    }
-
-    // TODO: Refactor this method to assure the quality contract is met
-    private boolean tie(Hand otherHand) {
-        if (this.communityCards.getCommunityCards() == null) {
-            boolean handValueTypeComparison = this.handValue.getHandType().getNumericHandValue()
-                    == otherHand.getHandValue().getHandType().getNumericHandValue();
-            if (handValueTypeComparison) {
-                return this.handValue.getFirstCardValue().getNumericValue() == otherHand.getHandValue().getFirstCardValue().getNumericValue()
-                        && handValue.getSecondCardValue().getNumericValue() == otherHand.getHandValue().getFirstCardValue().getNumericValue();
-            }
-        }
-
-        if (this.getHandValue().getHandType().getNumericHandValue() == otherHand.getHandValue().getHandType().getNumericHandValue()) {
-            if (this.handValue.getHandType() == HandValueType.FLUSH || this.handValue.getHandType() == HandValueType.HIGHCARD) {
-                List<Card> cardsOfThisHand = new LinkedList<>(this.handValue.getBoard());
-                List<Card> cardsOfTheOtherHand = new LinkedList<>(otherHand.getHandValue().getBoard());
-
-                cardsOfThisHand.sort(Comparator.comparingInt(card -> card.getValue().getNumericValue()));
-                cardsOfTheOtherHand.sort(Comparator.comparingInt(card -> card.getValue().getNumericValue()));
-
-                for (int i = 0; i < cardsOfThisHand.size(); i++) {
-                    if (cardsOfThisHand.get(i).getValue().getNumericValue()
-                            != cardsOfTheOtherHand.get(i).getValue().getNumericValue()) {
-                        return false;
-                    }
-                }
-
-            } else {
-
-                boolean firstCardCompare = this.handValue.getFirstCardValue().getNumericValue()
-                        == otherHand.getHandValue().getHandType().getNumericHandValue();
-                return firstCardCompare || (this.handValue.getSecondCardValue().getNumericValue()
-                        == otherHand.getHandValue().getSecondCardValue().getNumericValue());
-            }
-        }
-        return true;
-    }
 
 
     @Override
     protected void calculateCurrentHandValue() {
+        // If pre flop just call pokerUtils
         if (communityCards.getStageOfBoard() == Stage.PRE_FLOP) {
             this.handValue = pokerUtils.calculateOmahaPreFlop(handCards);
         } else {
+            // If not pre flop build all subsets of size 2 and use them in calculation
             this.handValue = Sets.powerSet(this.handCards)
                     .stream()
                     .filter(subSetOfHandCards -> subSetOfHandCards.size() == AMOUNT_OF_CARDS_FOR_VALUE_CALCULATION)
@@ -115,13 +80,16 @@ public class OmahaHand extends Hand implements Observer {
                             .comparingInt(handValue -> handValue
                                     .getHandType()
                                     .getNumericHandValue()))
-                    .max(Comparator.comparingInt(handValue -> handValue.getHandType().getNumericHandValue()))
-                    .orElseThrow();
+                    .max(new HandValueComparator())
+                    .orElseThrow(IllegalAccessError::new);
         }
     }
 
 
+    // Calculates a maximum HandValue from the given two card hand subset
     private HandValue calculateHandValue(Set<Card> subSetOfHand) {
+
+        // Get all sub set of size 3 from the current community cards
         Set<Set<Card>> subSetOfBoardCards = Sets.powerSet(this.communityCards.getCommunityCards())
                 .stream()
                 .filter(subSet -> subSet.size() == AMOUNT_OF_BOARD_CARDS_FOR_VALUE_CALCULATION)
@@ -129,6 +97,8 @@ public class OmahaHand extends Hand implements Observer {
 
         List<HandValue> handValues = new LinkedList<>();
 
+        // For each possible three card sub set of the 3 or 4 or 5 community cards
+        // Merge together calculate the hand value of the resulting board and add it to a list
         for (Set<Card> subSet : subSetOfBoardCards) {
             Set<Card> possibleBoard = new HashSet<>();
             possibleBoard.addAll(subSet);
@@ -136,12 +106,11 @@ public class OmahaHand extends Hand implements Observer {
             handValues.add(pokerUtils.calculateHandValue(possibleBoard));
         }
 
+        // Return the highest calculated hand value
         return handValues
                 .stream()
-                .max(Comparator
-                        .comparingInt(handValue ->
-                                handValue.getHandType().getNumericHandValue()))
-                .orElseThrow();
+                .max(new HandValueComparator())
+                .orElseThrow(IllegalAccessError::new);
     }
 
 

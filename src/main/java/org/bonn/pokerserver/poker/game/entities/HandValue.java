@@ -57,7 +57,7 @@ public class HandValue {
      * @return A board for this hand value
      */
     public Set<Card> getBoard() {
-        return Collections.unmodifiableSet(board);
+        return board == null ? null : Collections.unmodifiableSet(board);
     }
 
     /**
