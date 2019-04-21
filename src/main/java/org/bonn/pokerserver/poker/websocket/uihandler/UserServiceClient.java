@@ -1,4 +1,4 @@
-package org.bonn.pokerserver.websocket.UserServiceClient;
+package org.bonn.pokerserver.poker.websocket.uihandler;
 
 import org.bonn.pokerserver.poker.game.entities.player.Player;
 

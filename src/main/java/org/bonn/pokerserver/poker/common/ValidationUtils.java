@@ -1,6 +1,5 @@
 package org.bonn.pokerserver.poker.common;
 
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**

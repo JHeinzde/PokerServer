@@ -1,4 +1,4 @@
-package org.bonn.pokerserver.websocket.events;
+package org.bonn.pokerserver.poker.websocket.events;
 
 public enum EventType {
     PLAYER_JOIN,
@@ -12,5 +12,6 @@ public enum EventType {
     SHOWDOWN,
     SITOUT,
     COMEBACK,
+    REBUY,
     INVALID
 }

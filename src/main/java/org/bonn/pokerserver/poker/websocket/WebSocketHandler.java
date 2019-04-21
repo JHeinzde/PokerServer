@@ -1,4 +1,4 @@
-package org.bonn.pokerserver.websocket;
+package org.bonn.pokerserver.poker.websocket;
 
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.websocket.WebSocketBroadcaster;
@@ -7,16 +7,17 @@ import io.micronaut.websocket.annotation.OnMessage;
 import io.micronaut.websocket.annotation.OnOpen;
 import io.micronaut.websocket.annotation.ServerWebSocket;
 import org.bonn.pokerserver.poker.common.ValidationUtils;
+import org.bonn.pokerserver.poker.common.interfaces.TableList;
 import org.bonn.pokerserver.poker.game.PotLimitOmahaTable;
 import org.bonn.pokerserver.poker.game.entities.player.Player;
-import org.bonn.pokerserver.websocket.TableManagement.TableList;
-import org.bonn.pokerserver.websocket.UserServiceClient.UserServiceClient;
-import org.bonn.pokerserver.websocket.events.Event;
-import org.bonn.pokerserver.websocket.events.EventFactory;
-import org.bonn.pokerserver.websocket.events.PlayerJoinEvent;
+import org.bonn.pokerserver.poker.websocket.events.Event;
+import org.bonn.pokerserver.poker.websocket.events.EventFactory;
+import org.bonn.pokerserver.poker.websocket.uihandler.UserServiceClient;
 import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.inject.Inject;
 
 /**
  * This class handles all connection to the clients
@@ -26,14 +27,17 @@ public class WebSocketHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebSocketHandler.class);
 
-    private static final TableList tableList = TableList.getTableList();
     private static final ValidationUtils validator = ValidationUtils.getValidationUtils();
     private static final UserServiceClient userClient = UserServiceClient.getUserServiceClient();
     private static final EventFactory eventFactory = EventFactory.getEventFactory();
+
+    private final TableList tableList;
     private WebSocketBroadcaster broadcaster;
 
-    public WebSocketHandler(WebSocketBroadcaster webSocketBroadcaster) {
+    @Inject
+    public WebSocketHandler(WebSocketBroadcaster webSocketBroadcaster, TableList tableList) {
         this.broadcaster = webSocketBroadcaster;
+        this.tableList = tableList;
     }
 
     @OnOpen
@@ -75,7 +79,7 @@ public class WebSocketHandler {
 
         Event answerEvent = currentTable.processEvent(event);
 
-        return broadcaster.broadcast(event);
+        return broadcaster.broadcast(answerEvent);
     }
 
 }

@@ -1,4 +1,4 @@
-package org.bonn.pokerserver.websocket.events;
+package org.bonn.pokerserver.poker.websocket.events;
 
 public class InvalidInputEvent implements Event {
     private static final EventType EVENT_TYPE = EventType.INVALID;

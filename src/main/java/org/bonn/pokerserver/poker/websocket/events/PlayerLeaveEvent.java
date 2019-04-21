@@ -1,4 +1,4 @@
-package org.bonn.pokerserver.websocket.events;
+package org.bonn.pokerserver.poker.websocket.events;
 
 public class PlayerLeaveEvent implements Event {
 
