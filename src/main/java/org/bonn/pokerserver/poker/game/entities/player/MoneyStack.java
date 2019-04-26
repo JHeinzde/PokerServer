@@ -72,6 +72,17 @@ public class MoneyStack {
     }
 
     /**
+     * Re-buys the player with the specified amount
+     * @param reBuyAmount The amount to re-buy the player
+     * @throws InvalidTopOfAmountException If the amount for the re-buy was invalid
+     */
+    public void reset(BigDecimal reBuyAmount) throws InvalidTopOfAmountException {
+        // Reset the StackSize to zero
+        this.stackSize = BigDecimal.valueOf(0);
+        topOfStack(reBuyAmount);
+    }
+
+    /**
      * Returns the maximum stack size configured for this class
      *
      * @return The maximum stack size possible

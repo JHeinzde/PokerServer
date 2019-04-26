@@ -68,4 +68,14 @@ public class MoneyStackTest {
         moneyStack.topOfStack(negativeTopOfAmount);
     }
 
+    @Test
+    public void testResetCorrect() throws Exception {
+        BigDecimal reBuyAmount = BigDecimal.valueOf(1.5);
+
+        MoneyStack moneyStack = MoneyStack.newMoneyStack(stackSize, stackSize);
+        moneyStack.reset(reBuyAmount);
+
+        BigDecimal expectedStackSize = BigDecimal.valueOf(1.5);
+        assertEquals(expectedStackSize, moneyStack.getStackSize());
+    }
 }

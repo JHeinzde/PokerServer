@@ -4,8 +4,8 @@ package org.bonn.pokerserver.poker.websocket.events;
  * A class producing events
  */
 public class EventFactory {
-    private static final EventFactory SINGLETON_INSTANCE = new EventFactory();
 
+    private static final EventFactory SINGLETON_INSTANCE = new EventFactory();
 
     private EventFactory() {
         // Hide constructor from the outside

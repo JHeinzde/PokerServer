@@ -8,9 +8,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 /**
- * A mapper to map dtos to internal objects and the other way aroun
+ * A mapper to map dtos to internal objects and the other way around
  */
-@Mapper
+@Mapper(uses = {Player.class, BuyIn.class})
 public interface PokerDTOMapper {
 
     /**

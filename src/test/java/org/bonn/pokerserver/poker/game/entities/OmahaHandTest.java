@@ -83,7 +83,10 @@ public class OmahaHandTest {
         assertEquals(Comparison.TIE, pairHand.winsAgainst(tiePairHand));
     }
 
-    private static Set<Card> getTieHandForPocketPair(){
+
+    // Utility methods
+
+    private static Set<Card> getTieHandForPocketPair() {
         Set<Card> pairHandList = new HashSet<>();
         pairHandList.add(Card.newCard(Value.ACE, Suit.HEART));
         pairHandList.add(Card.newCard(Value.ACE, Suit.CLUB));
@@ -93,8 +96,6 @@ public class OmahaHandTest {
         return pairHandList;
     }
 
-
-    // Utility methods
 
     private static Set<Card> getPocketPairHand() {
         Set<Card> pairHandList = new HashSet<>();

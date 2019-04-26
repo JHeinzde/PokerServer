@@ -32,7 +32,7 @@ public class WebSocketHandler {
     private static final EventFactory eventFactory = EventFactory.getEventFactory();
 
     private final TableList tableList;
-    private WebSocketBroadcaster broadcaster;
+    private final WebSocketBroadcaster broadcaster;
 
     @Inject
     public WebSocketHandler(WebSocketBroadcaster webSocketBroadcaster, TableList tableList) {

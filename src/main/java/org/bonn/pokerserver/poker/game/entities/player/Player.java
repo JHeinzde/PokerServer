@@ -2,6 +2,7 @@ package org.bonn.pokerserver.poker.game.entities.player;
 
 import org.bonn.pokerserver.poker.game.exceptions.InvalidBetSizeException;
 import org.bonn.pokerserver.poker.game.exceptions.InvalidTopOfAmountException;
+import org.mapstruct.ObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,12 @@ public class Player {
     private final String name;
     private final String id;
     private final MoneyStack moneyStack;
+
+    public Player() {
+        this.name = null;
+        this.id = null;
+        this.moneyStack = null;
+    }
 
     private Player(String name, String id, MoneyStack moneyStack) {
         this.name = name;
@@ -71,14 +78,29 @@ public class Player {
         return true;
     }
 
+
+    public boolean reBuy(BigDecimal reBuyAmount) {
+        try {
+            moneyStack.reset(reBuyAmount);
+        } catch (InvalidTopOfAmountException e) {
+            LOG.info("Invalid top of amount detected", e);
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Returns a new Player object
-     * @param name The display name of the player
-     * @param id The id of the player
+     *
+     * @param name       The display name of the player
+     * @param id         The id of the player
      * @param moneyStack The stack of the player
      * @return The new Player object
      */
+    @ObjectFactory
     public static Player newPlayer(String name, String id, MoneyStack moneyStack) {
         return new Player(name, id, moneyStack);
     }
+
 }
