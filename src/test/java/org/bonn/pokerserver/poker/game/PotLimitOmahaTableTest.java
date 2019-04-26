@@ -8,8 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -30,7 +28,7 @@ public class PotLimitOmahaTableTest {
 
     @Test
     public void testPlayerAdding() {
-        BuyIn buyIn = BuyIn.newBuyIn(BigDecimal.valueOf(2));
+        BuyIn buyIn = BuyIn.newBuyIn(200);
         Player player = Player.newPlayer(PLAYER_NAME,
                 PLAYER_ID,
                 MoneyStack.newMoneyStack(StakeLevel.TWO.getNumericLevel(), null));
@@ -39,17 +37,19 @@ public class PotLimitOmahaTableTest {
 
         assertNotNull(potLimitOmahaTableUnderTest.getPlayerById(PLAYER_ID));
 
-        BigDecimal expectedStackSize = potLimitOmahaTableUnderTest
+        Integer actualStackSize = potLimitOmahaTableUnderTest
                 .getPlayerById(PLAYER_ID)
                 .getMoneyStack()
                 .getStackSize();
+
+        assertEquals(200, actualStackSize.longValue());
     }
 
     @Test
     public void testTopOffPlayer() {
         Player player = Player.newPlayer(PLAYER_NAME, PLAYER_ID,
-                MoneyStack.newMoneyStack(StakeLevel.TWO.getNumericLevel(),null));
+                MoneyStack.newMoneyStack(StakeLevel.TWO.getNumericLevel(), null));
 
-        TopOff topOff = new TopOff(BigDecimal.valueOf(0.5));
+        TopOff topOff = new TopOff(50);
     }
 }

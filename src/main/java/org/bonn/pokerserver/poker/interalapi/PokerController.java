@@ -2,7 +2,7 @@ package org.bonn.pokerserver.poker.interalapi;
 
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
-import org.bonn.pokerserve.poker.internalapi.dto.UpdateDTO;
+import org.bonn.pokerserver.poker.internalapi.dto.UpdateDTO;
 import org.bonn.pokerserver.poker.interalapi.dto.NewTableDTO;
 import org.bonn.pokerserver.poker.interalapi.dto.PlayerDTO;
 import org.bonn.pokerserver.poker.interalapi.service.PokerService;

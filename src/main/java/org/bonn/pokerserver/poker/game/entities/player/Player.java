@@ -49,7 +49,7 @@ public class Player {
      * @param bet The bet to make
      * @return If the bet was successful or not
      */
-    public boolean makeBet(BigDecimal bet) {
+    public boolean makeBet(Integer bet) {
 
         try {
             moneyStack.subtractBet(bet);
@@ -67,7 +67,7 @@ public class Player {
      * @param topOfAmount The amount to top of the stack with
      * @return True if top of was successful, false if the top of must be retried with a different value
      */
-    public boolean topOfStack(BigDecimal topOfAmount) {
+    public boolean topOfStack(Integer topOfAmount) {
         try {
             moneyStack.topOfStack(topOfAmount);
         } catch (InvalidTopOfAmountException e) {
@@ -79,7 +79,7 @@ public class Player {
     }
 
 
-    public boolean reBuy(BigDecimal reBuyAmount) {
+    public boolean reBuy(Integer reBuyAmount) {
         try {
             moneyStack.reset(reBuyAmount);
         } catch (InvalidTopOfAmountException e) {

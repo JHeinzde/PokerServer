@@ -1,16 +1,17 @@
 package org.bonn.pokerserver.poker.game.entities.player;
 
-import java.math.BigDecimal;
-
+/**
+ * This class wraps an integer that should be used to top off a player
+ */
 public class TopOff {
 
-    private final BigDecimal topOffAmount;
+    private final Integer topOffAmount;
 
-    public TopOff(BigDecimal topOffAmount) {
+    public TopOff(Integer topOffAmount) {
         this.topOffAmount = topOffAmount;
     }
 
-    public BigDecimal getAmount() {
+    public Integer getAmount() {
         return this.topOffAmount;
     }
 }

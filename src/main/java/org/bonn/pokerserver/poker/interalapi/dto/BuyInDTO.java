@@ -7,17 +7,17 @@ import java.math.BigDecimal;
  */
 public class BuyInDTO {
 
-    private final BigDecimal buyIn;
+    private final Integer buyIn;
 
-    private BuyInDTO(BigDecimal buyIn) {
+    private BuyInDTO(Integer buyIn) {
         this.buyIn = buyIn;
     }
 
-    public BigDecimal getBuyIn() {
+    public Integer getBuyIn() {
         return buyIn;
     }
 
-    public static BuyInDTO newBuyInDTO(BigDecimal buyIn) {
+    public static BuyInDTO newBuyInDTO(Integer buyIn) {
         return new BuyInDTO(buyIn);
     }
 }

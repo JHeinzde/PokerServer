@@ -1,25 +1,27 @@
 package org.bonn.pokerserver.poker.game;
 
-import java.math.BigDecimal;
-
+/**
+ * The stake level wraps an integer. The integer is representing the stake level in cents for USD and Euro.
+ * This implementaiton is only to be used in dollar and euros.
+ */
 public enum StakeLevel {
 
-    TWO(BigDecimal.valueOf(2)),
-    FIVE(BigDecimal.valueOf(5)),
-    TEN(BigDecimal.valueOf(10)),
-    TWENTY(BigDecimal.valueOf(20)),
-    FIFTY(BigDecimal.valueOf(50)),
-    ONE_HUNDRET(BigDecimal.valueOf(100)),
-    ONE_HUNDRET_FIFTY(BigDecimal.valueOf(150)),
-    THREE_HUNDRED(BigDecimal.valueOf(300));
+    TWO(2),
+    FIVE(5),
+    TEN(10),
+    TWENTY(20),
+    FIFTY(50),
+    ONE_HUNDRET(100),
+    ONE_HUNDRET_FIFTY(150),
+    THREE_HUNDRED(300);
 
-    private final BigDecimal numericLevel;
+    private final Integer numericLevel;
 
-    StakeLevel(BigDecimal numericLevel) {
+    StakeLevel(Integer numericLevel) {
         this.numericLevel = numericLevel;
     }
 
-    public BigDecimal getNumericLevel() {
+    public Integer getNumericLevel() {
         return numericLevel;
     }
 }

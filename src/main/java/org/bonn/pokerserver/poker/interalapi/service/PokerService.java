@@ -1,6 +1,6 @@
 package org.bonn.pokerserver.poker.interalapi.service;
 
-import org.bonn.pokerserve.poker.internalapi.dto.UpdateDTO;
+import org.bonn.pokerserver.poker.internalapi.dto.UpdateDTO;
 import org.bonn.pokerserver.poker.common.interfaces.TableList;
 import org.bonn.pokerserver.poker.game.PotLimitOmahaTable;
 import org.bonn.pokerserver.poker.interalapi.dto.NewTableDTO;

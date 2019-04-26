@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  */
 public class BuyIn {
 
-    private final BigDecimal buyInAmount;
+    private final Integer buyInAmount;
 
     /**
      * Public constructor for map struct
@@ -16,7 +16,7 @@ public class BuyIn {
         this.buyInAmount = null;
     }
 
-    private BuyIn(BigDecimal buyInAmount) {
+    private BuyIn(Integer buyInAmount) {
         this.buyInAmount = buyInAmount;
     }
 
@@ -25,7 +25,7 @@ public class BuyIn {
      *
      * @return BuyIn as BigDecimal
      */
-    public BigDecimal getBuyInAmount() {
+    public Integer getBuyInAmount() {
         return buyInAmount;
     }
 
@@ -35,7 +35,7 @@ public class BuyIn {
      * @param buyIn The BigDecimal to be included in the object
      * @return A new BuyIn Object
      */
-    public static BuyIn newBuyIn(BigDecimal buyIn) {
+    public static BuyIn newBuyIn(Integer buyIn) {
         return new BuyIn(buyIn);
     }
 }

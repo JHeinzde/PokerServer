@@ -4,19 +4,16 @@ import org.bonn.pokerserver.poker.game.exceptions.InvalidBetSizeException;
 import org.bonn.pokerserver.poker.game.exceptions.InvalidTopOfAmountException;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class MoneyStackTest {
 
-    private final BigDecimal stackSize = BigDecimal.valueOf(2.0);
+    private final Integer stackSize = 200;
 
     @Test
     public void testSubtractionOfStack() throws Exception {
-        BigDecimal bet = BigDecimal.valueOf(0.1);
-
-        BigDecimal expectedResult = BigDecimal.valueOf(1.9);
+        Integer bet = 10;
+        Integer expectedResult = 190;
 
         MoneyStack moneyStack = MoneyStack.newMoneyStack(stackSize, stackSize);
         moneyStack.subtractBet(bet);
@@ -26,7 +23,7 @@ public class MoneyStackTest {
 
     @Test(expected = InvalidBetSizeException.class)
     public void testSubtractionOfStackThrowsException() throws Exception {
-        BigDecimal bet = BigDecimal.valueOf(2.3);
+        Integer bet = 230;
 
         MoneyStack moneyStack = MoneyStack.newMoneyStack(stackSize, stackSize);
         moneyStack.subtractBet(bet);
@@ -34,11 +31,11 @@ public class MoneyStackTest {
 
     @Test
     public void testTopOfStack() throws Exception {
-        BigDecimal topOfAmount = BigDecimal.valueOf(1.5);
+        Integer topOfAmount = 150;
 
-        BigDecimal expectedAmount = BigDecimal.valueOf(3.5);
+        Integer expectedAmount = 350;
 
-        MoneyStack moneyStack = MoneyStack.newMoneyStack(BigDecimal.valueOf(4.0), stackSize);
+        MoneyStack moneyStack = MoneyStack.newMoneyStack(400, stackSize);
         moneyStack.topOfStack(topOfAmount);
 
         assertEquals(expectedAmount, moneyStack.getStackSize());
@@ -46,15 +43,15 @@ public class MoneyStackTest {
 
     @Test(expected = InvalidTopOfAmountException.class)
     public void testTopOfStackThrowsException() throws Exception {
-        BigDecimal topOfAmount = BigDecimal.valueOf(3);
+        Integer topOfAmount = 300;
 
-        MoneyStack moneyStack = MoneyStack.newMoneyStack(BigDecimal.valueOf(4.0), stackSize);
+        MoneyStack moneyStack = MoneyStack.newMoneyStack(400, stackSize);
         moneyStack.topOfStack(topOfAmount);
     }
 
     @Test(expected = InvalidBetSizeException.class)
     public void testNegativeBetSizeNotAllowed() throws Exception {
-        BigDecimal bet = BigDecimal.valueOf(-3.0);
+        Integer bet = -300;
 
         MoneyStack moneyStack = MoneyStack.newMoneyStack(stackSize, stackSize);
         moneyStack.subtractBet(bet);
@@ -62,7 +59,7 @@ public class MoneyStackTest {
 
     @Test(expected = InvalidTopOfAmountException.class)
     public void testNegativeTopOfAmountNotAllowed() throws Exception {
-        BigDecimal negativeTopOfAmount = BigDecimal.valueOf(-3.0);
+        Integer negativeTopOfAmount = -300;
 
         MoneyStack moneyStack = MoneyStack.newMoneyStack(stackSize, stackSize);
         moneyStack.topOfStack(negativeTopOfAmount);
@@ -70,12 +67,12 @@ public class MoneyStackTest {
 
     @Test
     public void testResetCorrect() throws Exception {
-        BigDecimal reBuyAmount = BigDecimal.valueOf(1.5);
+        Integer reBuyAmount = 150;
 
         MoneyStack moneyStack = MoneyStack.newMoneyStack(stackSize, stackSize);
         moneyStack.reset(reBuyAmount);
 
-        BigDecimal expectedStackSize = BigDecimal.valueOf(1.5);
+        Integer expectedStackSize = 150;
         assertEquals(expectedStackSize, moneyStack.getStackSize());
     }
 }

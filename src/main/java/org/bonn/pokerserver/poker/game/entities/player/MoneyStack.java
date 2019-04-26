@@ -11,20 +11,20 @@ import java.math.BigDecimal;
  */
 public class MoneyStack {
 
-    private static final BigDecimal ZERO = BigDecimal.ZERO;
+    private static final Integer ZERO = 0;
 
     /**
      * The maximum stack size that can be held after a top off (Winnings from pots are excluded by this)
      */
-    private final BigDecimal maxStackSize;
+    private final Integer maxStackSize;
 
     /**
      * The current stack size
      */
-    private BigDecimal stackSize;
+    private Integer stackSize;
 
 
-    private MoneyStack(BigDecimal maxStackSize, BigDecimal stackSize) {
+    private MoneyStack(Integer maxStackSize, Integer stackSize) {
         this.maxStackSize = maxStackSize;
         this.stackSize = stackSize;
     }
@@ -35,14 +35,14 @@ public class MoneyStack {
      * @param bet The bet to subtract from the current stack
      * @throws InvalidBetSizeException If the resulting stack size is negative this exception is thrown
      */
-    public void subtractBet(BigDecimal bet) throws InvalidBetSizeException {
-        BigDecimal newStackSize = stackSize.subtract(bet);
+    public void subtractBet(Integer bet) throws InvalidBetSizeException {
+        Integer newStackSize = stackSize - bet;
 
-        if (bet.compareTo(ZERO) < 0) {
+        if (bet < ZERO) {
             throw new InvalidBetSizeException("The argument given was zero. This is not allowed");
         }
 
-        if (newStackSize.compareTo(BigDecimal.valueOf(0.0)) < 0) {
+        if (newStackSize < 0) {
             throw new InvalidBetSizeException("Bet size is to big for the current stack");
         }
 
@@ -56,14 +56,14 @@ public class MoneyStack {
      * @param topOfAmount The amount to add to the stack
      * @throws InvalidTopOfAmountException When the new stack size is bigger than maxStackSize
      */
-    public void topOfStack(BigDecimal topOfAmount) throws InvalidTopOfAmountException {
-        BigDecimal newStackSize = this.stackSize.add(topOfAmount);
+    public void topOfStack(Integer topOfAmount) throws InvalidTopOfAmountException {
+        Integer newStackSize = this.stackSize + topOfAmount;
 
-        if (topOfAmount.compareTo(ZERO) < 0) {
+        if (topOfAmount < 0) {
             throw new InvalidTopOfAmountException("The argument given was zero. This is not allowed");
         }
 
-        if (newStackSize.compareTo(maxStackSize) > 0) {
+        if (newStackSize > maxStackSize) {
             throw new InvalidTopOfAmountException("The top of amount given is to big");
         }
 
@@ -76,9 +76,9 @@ public class MoneyStack {
      * @param reBuyAmount The amount to re-buy the player
      * @throws InvalidTopOfAmountException If the amount for the re-buy was invalid
      */
-    public void reset(BigDecimal reBuyAmount) throws InvalidTopOfAmountException {
+    public void reset(Integer reBuyAmount) throws InvalidTopOfAmountException {
         // Reset the StackSize to zero
-        this.stackSize = BigDecimal.valueOf(0);
+        this.stackSize = ZERO;
         topOfStack(reBuyAmount);
     }
 
@@ -87,7 +87,7 @@ public class MoneyStack {
      *
      * @return The maximum stack size possible
      */
-    public BigDecimal getMaxStackSize() {
+    public Integer getMaxStackSize() {
         return maxStackSize;
     }
 
@@ -96,9 +96,9 @@ public class MoneyStack {
      *
      * @return A copy of the current stack size held in this class
      */
-    public BigDecimal getStackSize() {
+    public Integer getStackSize() {
         //TODO: Observe if this is accurate enough. Rounding mistakes in a poker software can be costly.
-        return BigDecimal.valueOf(this.stackSize.doubleValue());
+        return this.stackSize;
     }
 
     /**
@@ -108,7 +108,7 @@ public class MoneyStack {
      * @param stackSize    The inital stack size to be set in the returned object
      * @return The newly created MoneyStack object
      */
-    public static MoneyStack newMoneyStack(BigDecimal maxStackSize, BigDecimal stackSize) {
+    public static MoneyStack newMoneyStack(Integer maxStackSize, Integer stackSize) {
         return new MoneyStack(maxStackSize, stackSize);
     }
 }
