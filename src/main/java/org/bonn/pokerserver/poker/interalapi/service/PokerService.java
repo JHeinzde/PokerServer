@@ -18,7 +18,6 @@ public class PokerService {
     private final TableList tableList;
     private static final PokerDTOMapper mapper = Mappers.getMapper(PokerDTOMapper.class);
 
-
     @Inject
     public PokerService(TableList globalTableList) {
         this.tableList = globalTableList;

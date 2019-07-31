@@ -1,23 +1,18 @@
 package org.bonn.pokerserver.poker.websocket.events;
 
+import org.bonn.pokerserver.poker.game.entities.player.Player;
+
 public class PlayerLeaveEvent implements Event {
 
     private static final EventType EVENT_TYPE = EventType.PLAYER_LEAVE;
+    private final Player player;
 
-    private final String playerName;
-    private final String playerId;
-
-    private PlayerLeaveEvent(String playerName, String playerId) {
-        this.playerId = playerId;
-        this.playerName = playerName;
+    private PlayerLeaveEvent(Player player) {
+        this.player = player;
     }
 
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public String getPlayerId() {
-        return playerId;
+    public Player getPlayer() {
+        return player;
     }
 
     @Override
@@ -25,7 +20,7 @@ public class PlayerLeaveEvent implements Event {
         return EVENT_TYPE;
     }
 
-    public static PlayerLeaveEvent newPlayerLeaveEvent(String playerName, String playerId) {
-        return new PlayerLeaveEvent(playerName, playerId);
+    public static PlayerLeaveEvent newPlayerLeaveEvent(Player player) {
+        return new PlayerLeaveEvent(player);
     }
 }

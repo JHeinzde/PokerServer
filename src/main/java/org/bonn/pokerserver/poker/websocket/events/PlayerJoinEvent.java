@@ -1,32 +1,35 @@
 package org.bonn.pokerserver.poker.websocket.events;
 
+import org.bonn.pokerserver.poker.game.entities.player.BuyIn;
+import org.bonn.pokerserver.poker.game.entities.player.Player;
+
 public class PlayerJoinEvent implements Event {
 
     private static final EventType EVENT_TYPE = EventType.PLAYER_JOIN;
-    private final String playerName;
-    private final String playerId;
+    private final Player player;
+    private final BuyIn buyIn;
 
 
-    private PlayerJoinEvent(String playerName, String playerId) {
-        this.playerName = playerName;
-        this.playerId = playerId;
+    private PlayerJoinEvent(Player player, BuyIn buyIn) {
+        this.player = player;
+        this.buyIn = buyIn;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public BuyIn getBuyIn() {
+        return buyIn;
+    }
 
     @Override
     public EventType getEventType() {
         return EVENT_TYPE;
     }
 
-    public String getPlayerId() {
-        return playerId;
-    }
 
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public static PlayerJoinEvent newPlayerJoinEvent(String playerName, String playerId) {
-        return new PlayerJoinEvent(playerName, playerId);
+    public static PlayerJoinEvent newPlayerJoinEvent(Player player, BuyIn buyIn) {
+        return new PlayerJoinEvent(player, buyIn);
     }
 }

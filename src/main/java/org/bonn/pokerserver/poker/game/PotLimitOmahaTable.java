@@ -84,6 +84,10 @@ public class PotLimitOmahaTable {
                 playerToUpdate -> playerToUpdate.reBuy(buyIn.getBuyInAmount()));
     }
 
+    public boolean removePlayer(Player player) {
+         return currentPlayers.remove(player);
+    }
+
     /**
      * Manipulates a single player matching the supplied filter closure and applies the given closure action
      *
