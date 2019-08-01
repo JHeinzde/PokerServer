@@ -5,10 +5,7 @@ import org.bonn.pokerserver.poker.game.PotLimitOmahaTable;
 import org.bonn.pokerserver.poker.game.StakeLevel;
 import org.bonn.pokerserver.poker.game.entities.player.BuyIn;
 import org.bonn.pokerserver.poker.game.entities.player.Player;
-import org.bonn.pokerserver.poker.websocket.events.Event;
-import org.bonn.pokerserver.poker.websocket.events.EventFactory;
-import org.bonn.pokerserver.poker.websocket.events.EventType;
-import org.bonn.pokerserver.poker.websocket.events.PlayerJoinEvent;
+import org.bonn.pokerserver.poker.websocket.events.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EventHandlerImplTest {
@@ -62,6 +60,18 @@ public class EventHandlerImplTest {
         PlayerJoinEvent joinEvent = (PlayerJoinEvent) joinEventProcessed;
 
         assertEquals(joinEvent.getPlayer(), playerTwo());
+    }
+
+    @Test
+    public void playerLeaveEvent() {
+        Event leaveEvent = EventFactory.getEventFactory()
+                .newPlayerLeaveEvent(playerOne());
+
+        Event leaveEventProcessed = eventHandler.handleEvent(leaveEvent, TEST_TABLE_ID);
+        PlayerLeaveEvent leaveEventCasted = (PlayerLeaveEvent) leaveEventProcessed;
+
+        assertEquals(leaveEventCasted.getPlayer(), playerOne());
+        assertEquals(0, (int) potLimitOmahaTable.size());
     }
 
 }

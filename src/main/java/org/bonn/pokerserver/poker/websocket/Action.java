@@ -7,5 +7,5 @@ import org.bonn.pokerserver.poker.websocket.events.Event;
  * event x was recived
  */
 public interface Action {
-    Event processEvent(Event event, String tableId);
+    Event processEvent(Event event, String tableId, String playerId);
 }

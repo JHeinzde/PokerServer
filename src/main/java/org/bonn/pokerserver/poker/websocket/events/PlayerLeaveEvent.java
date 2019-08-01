@@ -2,6 +2,9 @@ package org.bonn.pokerserver.poker.websocket.events;
 
 import org.bonn.pokerserver.poker.game.entities.player.Player;
 
+/**
+ * This event encapsulates a player leaving the table
+ */
 public class PlayerLeaveEvent implements Event {
 
     private static final EventType EVENT_TYPE = EventType.PLAYER_LEAVE;

@@ -27,7 +27,6 @@ public class EventFactory {
      * Creates a PlayerLeaveEvent from the given playerName and playerId
      * @param player The player that left the game
      * @return The newly created event
-     *
      */
     public Event newPlayerLeaveEvent(Player player) {
         return PlayerLeaveEvent.newPlayerLeaveEvent(player);

@@ -2,6 +2,7 @@ package org.bonn.pokerserver.poker.websocket;
 
 import org.bonn.pokerserver.poker.common.interfaces.TableList;
 import org.bonn.pokerserver.poker.game.PotLimitOmahaTable;
+import org.bonn.pokerserver.poker.game.entities.player.Player;
 import org.bonn.pokerserver.poker.websocket.events.*;
 
 import javax.inject.Inject;
@@ -28,12 +29,12 @@ public class EventHandlerImpl implements EventHandler {
     }
 
     @Override
-    public Event handleEvent(Event event, String tableId) {
+    public Event handleEvent(Event event, String tableId, String playerId) {
         Action action = eventActionMap.get(event.getEventType());
-        return action.processEvent(event, tableId);
+        return action.processEvent(event, tableId, playerId);
     }
 
-    private Event processJoinEvent(Event event, String tableId) {
+    private Event processJoinEvent(Event event, String tableId, String playerId) {
         if (event.getEventType() != EventType.PLAYER_JOIN) {
             return eventFactory.newInvalidInputEvent("Invalid event passed");
         }
@@ -50,7 +51,7 @@ public class EventHandlerImpl implements EventHandler {
         return eventFactory.newPlayerJoinEvent(joinEvent.getPlayer());
     }
 
-    private Event processLeaveEvent(Event event, String tableId) {
+    private Event processLeaveEvent(Event event, String tableId, String playerId) {
         if (event.getEventType() != EventType.PLAYER_LEAVE) {
             return eventFactory.newInvalidInputEvent("Invalid event passed");
         }
@@ -65,7 +66,21 @@ public class EventHandlerImpl implements EventHandler {
         return eventFactory.newInvalidInputEvent("Could not remove player from table");
     }
 
-    private Event processBetEvent(Event event, String tableId) {
+    private Event processBetEvent(Event event, String tableId, String playerId) {
+        if (event.getEventType() != EventType.BET) {
+            return eventFactory.newInvalidInputEvent("Invalid event passed");
+        }
+
+        BetEvent betEvent = (BetEvent) event;
+
+        PotLimitOmahaTable table = tableList.getPotLimitOmahaTableById(tableId);
+        Player player = table.getPlayerById(playerId);
+        if (player == null){
+            return eventFactory.newInvalidInputEvent("Invalid event passed");
+        }
+
+
         return null;
     }
+
 }

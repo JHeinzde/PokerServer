@@ -11,5 +11,5 @@ public interface EventHandler {
      * @param event The input event that should be processed by the event handler
      * @return
      */
-    Event handleEvent(Event event, String tableId);
+    Event handleEvent(Event event, String tableId, String playerId);
 }

@@ -26,6 +26,7 @@ public class PotLimitOmahaTable {
 
     private final Stack<Round> roundHistory;
     private final List<Player> currentPlayers;
+    private final Pot pot;
 
     private PotLimitOmahaTable(StakeLevel stakeLevel) {
         this.roundHistory = new Stack<>();
@@ -84,8 +85,27 @@ public class PotLimitOmahaTable {
                 playerToUpdate -> playerToUpdate.reBuy(buyIn.getBuyInAmount()));
     }
 
+    public void executeBet(Player player, BetAmount betAmount) {
+
+    }
+
+    /**
+     * Removes a player from the table
+     *
+     * @param player The player to be removed from the table
+     * @return true if the player could be removed false if the player did not exist in the player list
+     */
     public boolean removePlayer(Player player) {
-         return currentPlayers.remove(player);
+        return currentPlayers.remove(player);
+    }
+
+    /**
+     * Returns the current size of the player list of the table
+     *
+     * @return The current amount of player sitting at the table
+     */
+    public Integer size() {
+        return this.currentPlayers.size();
     }
 
     /**
