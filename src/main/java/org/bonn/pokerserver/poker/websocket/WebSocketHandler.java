@@ -62,11 +62,11 @@ public class WebSocketHandler {
         }
 
         LOG.info("Player with the id {} joined table with the id {}", playerId, tableId);
-        return broadcaster.broadcast(eventFactory.newPlayerJoinEvent(player.getName(), player.getId()));
+        return broadcaster.broadcast(eventFactory.newPlayerJoinEvent(player));
     }
 
     @OnMessage
-    public Publisher<Event> onMessage(@PathVariable("tabel-id") String tableId,
+    public Publisher<Event> onMessage(@PathVariable("table-id") String tableId,
                                       @PathVariable("player-id") String playerId,
                                       Event event,
                                       WebSocketSession session) {
@@ -78,7 +78,6 @@ public class WebSocketHandler {
         }
 
         Event answerEvent = currentTable.processEvent(event);
-
         return broadcaster.broadcast(answerEvent);
     }
 

@@ -40,11 +40,14 @@ public class EventHandlerImpl implements EventHandler {
 
         // Make checked cast to join event
         PlayerJoinEvent joinEvent = (PlayerJoinEvent) event;
-
         PotLimitOmahaTable table = tableList.getPotLimitOmahaTableById(tableId);
-        table.addPlayer(joinEvent.getPlayer(), joinEvent.getBuyIn());
+        var player = table.getPlayerById(joinEvent.getPlayer().getId());
 
-        return eventFactory.newPlayerJoinEvent(joinEvent.getPlayer(), joinEvent.getBuyIn());
+        if (player == null){
+            return eventFactory.newInvalidInputEvent("Invalid event passed");
+        }
+
+        return eventFactory.newPlayerJoinEvent(joinEvent.getPlayer());
     }
 
     private Event processLeaveEvent(Event event, String tableId) {
@@ -63,6 +66,6 @@ public class EventHandlerImpl implements EventHandler {
     }
 
     private Event processBetEvent(Event event, String tableId) {
-
+        return null;
     }
 }

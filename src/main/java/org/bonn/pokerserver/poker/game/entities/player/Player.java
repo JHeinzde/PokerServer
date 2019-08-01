@@ -1,5 +1,6 @@
 package org.bonn.pokerserver.poker.game.entities.player;
 
+import com.google.common.base.Objects;
 import org.bonn.pokerserver.poker.game.exceptions.InvalidBetSizeException;
 import org.bonn.pokerserver.poker.game.exceptions.InvalidTopOfAmountException;
 import org.mapstruct.ObjectFactory;
@@ -78,7 +79,11 @@ public class Player {
         return true;
     }
 
-
+    /**
+     * Rebuys the player with the specified amount
+     * @param reBuyAmount The amount that the player should be rebought with
+     * @return If the rebuy was successful
+     */
     public boolean reBuy(Integer reBuyAmount) {
         try {
             moneyStack.reset(reBuyAmount);
@@ -88,6 +93,20 @@ public class Player {
         }
 
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return Objects.equal(name, player.name) &&
+                Objects.equal(id, player.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name, id);
     }
 
     /**

@@ -7,12 +7,16 @@ import org.bonn.pokerserver.poker.game.entities.player.BuyIn;
 import org.bonn.pokerserver.poker.game.entities.player.Player;
 import org.bonn.pokerserver.poker.websocket.events.Event;
 import org.bonn.pokerserver.poker.websocket.events.EventFactory;
+import org.bonn.pokerserver.poker.websocket.events.EventType;
+import org.bonn.pokerserver.poker.websocket.events.PlayerJoinEvent;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import static junit.framework.TestCase.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EventHandlerImplTest {
@@ -27,28 +31,37 @@ public class EventHandlerImplTest {
     @Before
     public void setUp() throws Exception {
         potLimitOmahaTable = PotLimitOmahaTable.newPotLimitOmahaTable(StakeLevel.TWO);
-        potLimitOmahaTable.addPlayer(testPlayer(), testBuyIn());
+        potLimitOmahaTable.addPlayer(playerOne(), buyInPlayerOne());
 
         Mockito.when(tableList.getPotLimitOmahaTableById(TEST_TABLE_ID)).thenReturn(potLimitOmahaTable);
         eventHandler = new EventHandlerImpl(tableList, EventFactory.getEventFactory());
     }
 
-    private Player testPlayer() {
+    private Player playerOne() {
         return Player.newPlayer("TonyTester", "1234", null);
     }
 
-    private BuyIn testBuyIn() {
+    private Player playerTwo() {
+        return Player.newPlayer("AntonAdmin", "12345", null);
+    }
+
+    private BuyIn buyInPlayerOne() {
         return BuyIn.newBuyIn(200);
+    }
+    private BuyIn buyInPlayerTwo() {
+        return BuyIn.newBuyIn(100);
     }
 
     @Test
     public void playerJoinEvent() {
+        potLimitOmahaTable.addPlayer(playerTwo(), buyInPlayerTwo());
+
         Event testEvent = EventFactory.getEventFactory()
-                .newPlayerJoinEvent(testPlayer(), testBuyIn());
+                .newPlayerJoinEvent(playerTwo());
+        Event joinEventProcessed = eventHandler.handleEvent(testEvent, TEST_TABLE_ID);
+        PlayerJoinEvent joinEvent = (PlayerJoinEvent) joinEventProcessed;
 
-        eventHandler.handleEvent(testEvent, TEST_TABLE_ID);
-
-        assert
+        assertEquals(joinEvent.getPlayer(), playerTwo());
     }
 
 }

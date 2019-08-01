@@ -17,17 +17,15 @@ public class EventFactory {
     /**
      * Creates a PlayerJoinEvent from the given playerName and playerId
      * @param player The player that joined the table
-     * @param buyIn The BuyIn the player takes to this table
      * @return The newly created event
      */
-    public Event newPlayerJoinEvent(Player player, BuyIn buyIn) {
-        return PlayerJoinEvent.newPlayerJoinEvent(player, buyIn);
+    public Event newPlayerJoinEvent(Player player) {
+        return PlayerJoinEvent.newPlayerJoinEvent(player);
     }
 
     /**
      * Creates a PlayerLeaveEvent from the given playerName and playerId
-     * @param playerName The playerName to be set in the new event
-     * @param playerId The playerId to be set in the new event
+     * @param player The player that left the game
      * @return The newly created event
      *
      */
