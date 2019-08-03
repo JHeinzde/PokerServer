@@ -20,14 +20,9 @@ import java.util.function.Predicate;
 public class PotLimitOmahaTable {
 
     private final StakeLevel stakeLevel;
-
     private Round currentRound;
-    private Player toAct;
-    private List<Player> remainingPlayers;
-
     private final Stack<Round> roundHistory;
     private final List<Player> currentPlayers;
-    private final Pot pot;
 
     private PotLimitOmahaTable(StakeLevel stakeLevel) {
         this.roundHistory = new Stack<>();
@@ -85,12 +80,6 @@ public class PotLimitOmahaTable {
     public void rebuyPlayer(Player player, BuyIn buyIn) {
         manipulatePlayer(playerToFilter -> playerToFilter.getId().equals(player.getId()),
                 playerToUpdate -> playerToUpdate.reBuy(buyIn.getBuyInAmount()));
-    }
-
-    public void executeBet(Player player, Integer betAmount) {
-        manipulatePlayer(playerToFilter -> playerToFilter.getId().equals(player.getId()),
-                playerToUpdate -> playerToUpdate.makeBet(betAmount));
-        pot.addBet(betAmount);
     }
 
     /**
