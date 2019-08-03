@@ -26,7 +26,7 @@ public class RoundTest {
 
 
     @Test(expected = InvalidAccessException.class)
-    public void testAdvanceStage() {
+    public void testAdvanceStage() throws InvalidAccessException {
         assertEquals(Stage.PRE_FLOP, roundUnderTest.getStage());
 
         roundUnderTest.advanceStage();

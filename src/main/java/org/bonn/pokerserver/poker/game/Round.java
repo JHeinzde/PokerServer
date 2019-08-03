@@ -1,5 +1,6 @@
 package org.bonn.pokerserver.poker.game;
 
+import org.bonn.pokerserver.poker.common.exceptions.InvalidAccessException;
 import org.bonn.pokerserver.poker.game.entities.Pot;
 import org.bonn.pokerserver.poker.game.entities.enums.Stage;
 import org.bonn.pokerserver.poker.game.entities.player.Player;
@@ -38,7 +39,21 @@ public class Round {
 
     public void processAction(PlayerAction playerAction) {}
 
-    public void advanceStage() {}
+    public void advanceStage() throws InvalidAccessException {
+        switch (stage) {
+            case PRE_FLOP:
+                stage = Stage.FLOP;
+                break;
+            case FLOP:
+                stage = Stage.TURN;
+                break;
+            case TURN:
+                stage = Stage.RIVER;
+                break;
+            case RIVER:
+                throw new InvalidAccessException("Cant call advance stage when stage is river");
+        }
+    }
 
     public void showdown() {}
 
