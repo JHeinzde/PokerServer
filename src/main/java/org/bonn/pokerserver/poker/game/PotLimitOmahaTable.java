@@ -1,6 +1,7 @@
 package org.bonn.pokerserver.poker.game;
 
 import org.bonn.pokerserver.poker.common.CustomCollectors;
+import org.bonn.pokerserver.poker.game.entities.Pot;
 import org.bonn.pokerserver.poker.game.entities.player.BuyIn;
 import org.bonn.pokerserver.poker.game.entities.player.MoneyStack;
 import org.bonn.pokerserver.poker.game.entities.player.Player;
@@ -32,6 +33,7 @@ public class PotLimitOmahaTable {
         this.roundHistory = new Stack<>();
         this.currentPlayers = new LinkedList<>();
         this.stakeLevel = stakeLevel;
+        this.pot = Pot.newPot();
     }
 
     //TODO: Remove this and put it into a single class
@@ -85,8 +87,10 @@ public class PotLimitOmahaTable {
                 playerToUpdate -> playerToUpdate.reBuy(buyIn.getBuyInAmount()));
     }
 
-    public void executeBet(Player player, BetAmount betAmount) {
-
+    public void executeBet(Player player, Integer betAmount) {
+        manipulatePlayer(playerToFilter -> playerToFilter.getId().equals(player.getId()),
+                playerToUpdate -> playerToUpdate.makeBet(betAmount));
+        pot.addBet(betAmount);
     }
 
     /**

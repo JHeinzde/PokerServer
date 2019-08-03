@@ -81,6 +81,7 @@ public class Player {
 
     /**
      * Rebuys the player with the specified amount
+     *
      * @param reBuyAmount The amount that the player should be rebought with
      * @return If the rebuy was successful
      */
@@ -93,6 +94,15 @@ public class Player {
         }
 
         return true;
+    }
+
+    /**
+     * This method adds the specified payout to the stack of the player
+     *
+     * @param payOut The pay out to add to the stack
+     */
+    public void payOutPlayer(Integer payOut) {
+        moneyStack.addPayOut(payOut);
     }
 
     @Override

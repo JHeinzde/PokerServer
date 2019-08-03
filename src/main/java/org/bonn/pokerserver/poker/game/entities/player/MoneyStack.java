@@ -73,6 +73,7 @@ public class MoneyStack {
 
     /**
      * Re-buys the player with the specified amount
+     *
      * @param reBuyAmount The amount to re-buy the player
      * @throws InvalidTopOfAmountException If the amount for the re-buy was invalid
      */
@@ -99,6 +100,16 @@ public class MoneyStack {
     public Integer getStackSize() {
         //TODO: Observe if this is accurate enough. Rounding mistakes in a poker software can be costly.
         return this.stackSize;
+    }
+
+    /**
+     * Adds the specified payout of a round to the stack
+     *
+     * @param payOut The payOut that should be added to the stack
+     */
+    public void addPayOut(Integer payOut) {
+        //TODO: Secure this method. This could be abused
+        this.stackSize += payOut;
     }
 
     /**
