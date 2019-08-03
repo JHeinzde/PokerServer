@@ -46,6 +46,7 @@ public class EventHandlerImplTest {
     private BuyIn buyInPlayerOne() {
         return BuyIn.newBuyIn(200);
     }
+
     private BuyIn buyInPlayerTwo() {
         return BuyIn.newBuyIn(100);
     }
@@ -56,7 +57,7 @@ public class EventHandlerImplTest {
 
         Event testEvent = EventFactory.getEventFactory()
                 .newPlayerJoinEvent(playerTwo());
-        Event joinEventProcessed = eventHandler.handleEvent(testEvent, TEST_TABLE_ID);
+        Event joinEventProcessed = eventHandler.handleEvent(testEvent, TEST_TABLE_ID, playerTwo().getId());
         PlayerJoinEvent joinEvent = (PlayerJoinEvent) joinEventProcessed;
 
         assertEquals(joinEvent.getPlayer(), playerTwo());
@@ -67,7 +68,7 @@ public class EventHandlerImplTest {
         Event leaveEvent = EventFactory.getEventFactory()
                 .newPlayerLeaveEvent(playerOne());
 
-        Event leaveEventProcessed = eventHandler.handleEvent(leaveEvent, TEST_TABLE_ID);
+        Event leaveEventProcessed = eventHandler.handleEvent(leaveEvent, TEST_TABLE_ID, playerOne().getId());
         PlayerLeaveEvent leaveEventCasted = (PlayerLeaveEvent) leaveEventProcessed;
 
         assertEquals(leaveEventCasted.getPlayer(), playerOne());

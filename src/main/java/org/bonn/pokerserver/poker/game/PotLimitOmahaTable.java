@@ -28,7 +28,6 @@ public class PotLimitOmahaTable {
         this.roundHistory = new Stack<>();
         this.currentPlayers = new LinkedList<>();
         this.stakeLevel = stakeLevel;
-        this.pot = Pot.newPot();
     }
 
     //TODO: Remove this and put it into a single class

@@ -3,6 +3,7 @@ package org.bonn.pokerserver.poker.game;
 import org.bonn.pokerserver.poker.game.entities.Pot;
 import org.bonn.pokerserver.poker.game.entities.enums.Stage;
 import org.bonn.pokerserver.poker.game.entities.player.Player;
+import org.bonn.pokerserver.poker.game.entities.player.PlayerAction;
 import org.bonn.pokerserver.poker.websocket.events.Event;
 
 import java.util.List;
@@ -37,15 +38,20 @@ public class Round {
 
     public void processAction(PlayerAction playerAction) {}
 
-    public void advancesStage() {}
+    public void advanceStage() {}
 
     public void showdown() {}
 
-    private Player determineWinner() {}
+    private Player determineWinner() { return null; }
 
     private void payOutPlayer(Player player) {}
 
     private void executePostRoundEvents() {}
 
     private void getInitialBlinds() {}
+
+
+    public Stage getStage() {
+        return stage;
+    }
 }
